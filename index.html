@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Information Card</title>
+    <style>
+      .user-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 30px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .heading {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+      }
+
+      .user-card div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        color: #666;
+      }
+
+      .user-card div span {
+        font-weight: bold;
+        color: #333;
+      }
+
+      .clr-data {
+        margin-top: 20px;
+        background-color: #ff6347;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .clr-data:hover {
+        background-color: #e64a33;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="user-card">
+      <h1 class="heading">User Information Card</h1>
+      <div>First Name : <span class="firstName"></span></div>
+      <div>Last Name : <span class="lastName"></span></div>
+      <div>Country : <span class="country"></span></div>
+      <div>Phone Number : <span class="phoneNumber"></span></div>
+      <div>State : <span class="state"></span></div>
+      <div>City : <span class="city"></span></div>
+      <div>Village : <span class="village"></span></div>
+      <br />
+      <button class="clr-data">Clear Data</button>
+    </div>
+    <script>
+      // html constants
+      const firstName = document.querySelector(".firstName");
+      const lastName = document.querySelector(".lastName");
+      const country = document.querySelector(".country");
+      const phoneNumber = document.querySelector(".phoneNumber");
+      const state = document.querySelector(".state");
+      const city = document.querySelector(".city");
+      const village = document.querySelector(".village");
+      const clrData = document.querySelector(".clr-data");
+
+      clrData.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        window.location.reload();
+      });
+
+      let obj =
+        JSON.parse(localStorage.getItem("userInformation")) == null
+          ? {}
+          : JSON.parse(localStorage.getItem("userInformation"));
+
+      function fetchData() {
+        if (obj?.firstName == null) {
+          while (!obj.firstName) {
+            obj.firstName = prompt("Enter First Name");
+          }
+          firstName.innerHTML = obj?.firstName;
+        } else firstName.innerHTML = obj?.firstName;
+
+        if (obj?.lastName == null) {
+          while (!obj.lastName) {
+            obj.lastName = prompt("Enter Last Name");
+          }
+          lastName.innerHTML = obj.lastName;
+        } else lastName.innerHTML = obj?.lastName;
+
+        if (obj?.phoneNumber == null) {
+          while (!obj.phoneNumber) {
+            obj.phoneNumber = prompt("Enter your Phone Number");
+          }
+          phoneNumber.innerHTML = obj.phoneNumber;
+        } else phoneNumber.innerHTML = obj?.phoneNumber;
+
+        if (obj?.country == null) {
+          while (!obj.country) {
+            obj.country = prompt("Enter Your Country");
+          }
+          country.innerHTML = obj.country;
+        } else country.innerHTML = obj?.country;
+
+        if (obj?.state == null) {
+          while (!obj.state) {
+            obj.state = prompt("Enter Your State");
+          }
+          state.innerHTML = obj.state;
+        } else state.innerHTML = obj?.state;
+
+        if (obj?.city == null) {
+          while (!obj.city) {
+            obj.city = prompt("Enter Your City");
+          }
+          city.innerHTML = obj.city;
+        } else city.innerHTML = obj?.city;
+
+        if (obj?.village == null) {
+          while (!obj.village) {
+            obj.village = prompt("Enter Your Village");
+          }
+          village.innerHTML = obj.village;
+        } else village.innerHTML = obj?.village;
+
+        localStorage.setItem("userInformation", JSON.stringify(obj));
+      }
+      fetchData();
+    </script>
+  </body>
+</html>
